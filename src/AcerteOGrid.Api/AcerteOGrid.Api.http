@@ -1,0 +1,6 @@
+@AcerteOGrid.Api_HostAddress = http://localhost:5254
+
+GET {{AcerteOGrid.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
