@@ -1,4 +1,5 @@
-﻿using AcerteOGrid.Communication.Requests.Pilot;
+﻿using AcerteOGrid.Application.Services.Pilot;
+using AcerteOGrid.Communication.Pilot.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AcerteOGrid.Api.Controllers
@@ -10,7 +11,10 @@ namespace AcerteOGrid.Api.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] ResquestRegisterPilotJson request)
         {
-            return Created();
+            var service = new PilotRegisterService();
+            var response = service.Execute(request);
+
+            return Created(string.Empty, response);
         }
     }
 }

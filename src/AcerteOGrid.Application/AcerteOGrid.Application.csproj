@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AcerteOGrid.Communication\AcerteOGrid.Communication.csproj" />
     <ProjectReference Include="..\AcerteOGrid.Domain\AcerteOGrid.Domain.csproj" />
     <ProjectReference Include="..\AcerteOGrid.Exception\AcerteOGrid.Exception.csproj" />

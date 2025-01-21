@@ -1,6 +1,6 @@
 ﻿using AcerteOGrid.Communication.Enums;
 
-namespace AcerteOGrid.Communication.Requests.Pilot
+namespace AcerteOGrid.Communication.Pilot.Request
 {
     public class ResquestRegisterPilotJson
     {

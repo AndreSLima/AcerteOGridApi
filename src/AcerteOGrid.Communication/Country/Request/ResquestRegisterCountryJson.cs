@@ -1,4 +1,4 @@
-﻿namespace AcerteOGrid.Communication.Requests.Country
+﻿namespace AcerteOGrid.Communication.Country.Request
 {
     public class ResquestRegisterCountryJson
     {

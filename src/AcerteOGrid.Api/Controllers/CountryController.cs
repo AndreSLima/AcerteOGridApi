@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Requests.Country;
+﻿using AcerteOGrid.Communication.Country.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AcerteOGrid.Api.Controllers
