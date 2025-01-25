@@ -12,7 +12,7 @@ namespace AcerteOGrid.Application.Services.Pilot
             RuleFor(pilot => pilot.ShortName).NotEmpty().WithMessage(ResourceErrorMessages.SHORT_NAME_REQUIRED);
             RuleFor(pilot => pilot.GenderType).IsInEnum().WithMessage(ResourceErrorMessages.GENDER_TYPE_INVALID);
 
-            RuleFor(pilot => pilot.DateOfBirth).SetValidator(new DateValidator<ResquestRegisterPilotJson>());
+            //RuleFor(pilot => pilot.DateOfBirth).SetValidator(new DateValidator<ResquestRegisterPilotJson>());
         }
     }
 }

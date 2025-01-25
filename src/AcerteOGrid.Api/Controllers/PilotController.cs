@@ -9,10 +9,9 @@ namespace AcerteOGrid.Api.Controllers
     public class PilotController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Register([FromBody] ResquestRegisterPilotJson request)
+        public async Task<IActionResult> Register([FromServices] IPilotRegisterService service, [FromBody] ResquestRegisterPilotJson request)
         {
-            var service = new PilotRegisterService();
-            var response = service.Execute(request);
+            var response = await service.Execute(request);
 
             return Created(string.Empty, response);
         }

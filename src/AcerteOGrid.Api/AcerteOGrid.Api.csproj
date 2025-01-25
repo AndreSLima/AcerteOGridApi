@@ -14,6 +14,7 @@
     <ProjectReference Include="..\AcerteOGrid.Application\AcerteOGrid.Application.csproj" />
     <ProjectReference Include="..\AcerteOGrid.Communication\AcerteOGrid.Communication.csproj" />
     <ProjectReference Include="..\AcerteOGrid.Exception\AcerteOGrid.Exception.csproj" />
+    <ProjectReference Include="..\AcerteOGrid.Infrastructure\AcerteOGrid.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

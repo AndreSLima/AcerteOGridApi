@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Enums;
+﻿using AcerteOGrid.Domain.Enums;
 
 namespace AcerteOGrid.Communication.Pilot.Response
 {

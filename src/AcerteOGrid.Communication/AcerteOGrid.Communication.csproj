@@ -10,4 +10,8 @@
     <Folder Include="Country\Response\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AcerteOGrid.Domain\AcerteOGrid.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
