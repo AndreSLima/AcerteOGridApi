@@ -1,4 +1,5 @@
-﻿using AcerteOGrid.Application.Services.Pilot;
+﻿using AcerteOGrid.Application.AutoMapper;
+using AcerteOGrid.Application.Services.Pilot;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AcerteOGrid.Application
@@ -7,7 +8,22 @@ namespace AcerteOGrid.Application
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IPilotRegisterService, PilotRegisterService>();
+            AddServices(services);
+            AddAutoMpper(services);
+        }
+
+        private static void AddServices(IServiceCollection services)
+        {
+            services.AddScoped<IPilotGetAllService, PilotGetAllService>();
+            services.AddScoped<IPilotGetByIdService, PilotGetByIdService>();
+            services.AddScoped<IPilotInsertService, PilotInsertService>();
+            services.AddScoped<IPilotUpdateService, PilotUpdateService>();
+            services.AddScoped<IPilotDeleteService, PilotDeleteService>();
+        }
+
+        private static void AddAutoMpper(IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(AutoMapping));
         }
     }
 }

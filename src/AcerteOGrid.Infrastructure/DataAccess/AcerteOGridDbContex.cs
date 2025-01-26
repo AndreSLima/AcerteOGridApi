@@ -1,7 +1,5 @@
 ﻿using AcerteOGrid.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AcerteOGrid.Infrastructure.DataAccess
 {
@@ -20,7 +18,7 @@ namespace AcerteOGrid.Infrastructure.DataAccess
                 entity.Property(e => e.ShortName).HasColumnName("PILNOMRED");
                 entity.Property(e => e.DateOfBirth).HasColumnName("PILDATNAS");
                 entity.Property(e => e.DateOfDeath).HasColumnName("PILDATFAL");
-                entity.Property(e => e.GenderType).HasColumnName("PILSEX");
+                entity.Property(e => e.GenderType).HasColumnName("PILSEX").HasColumnType("BIT");
             });
         }
     }

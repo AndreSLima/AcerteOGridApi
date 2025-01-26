@@ -19,7 +19,9 @@ namespace AcerteOGrid.Infrastructure
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IPilotRespository, PilotRepository>();
+            services.AddScoped<IPilotReadOnlyRespository, PilotRepository>();
+            services.AddScoped<IPilotWriteOnlyRespository, PilotRepository>();
+            services.AddScoped<IPilotUpdateOnlyRespository, PilotRepository>();
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

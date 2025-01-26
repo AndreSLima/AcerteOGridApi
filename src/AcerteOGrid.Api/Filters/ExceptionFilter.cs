@@ -22,21 +22,11 @@ namespace AcerteOGrid.Api.Filters
 
         private void HandleProjectException(ExceptionContext context)
         {
-            if (context.Exception is ErrorOnValidationException)
-            {
-                var ex = (ErrorOnValidationException)context.Exception;
-                var errorResponse = new ResponseErrorJson(ex.Errors);
+            var acerteOGridException = context.Exception as AcerteOGridException;
+            var errorResponse = new ResponseErrorJson(acerteOGridException!.GetErrors());
 
-                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Result = new BadRequestObjectResult(errorResponse);
-            }
-            else
-            {
-                var errorResponse = new ResponseErrorJson(context.Exception.Message);
-
-                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                context.Result = new BadRequestObjectResult(errorResponse);
-            }
+            context.HttpContext.Response.StatusCode = acerteOGridException.StatusCode;
+            context.Result = new ObjectResult(errorResponse);
         }
 
         private void ThrowUnkowError(ExceptionContext context)

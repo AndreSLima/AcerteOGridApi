@@ -135,4 +135,7 @@
   <data name="DATE_INVALID" xml:space="preserve">
     <value>The date is not valid.</value>
   </data>
+  <data name="PILOT_NOT_FOUND" xml:space="preserve">
+    <value>Pilot not found,</value>
+  </data>
 </root>

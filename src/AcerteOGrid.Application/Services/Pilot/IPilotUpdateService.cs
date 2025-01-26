@@ -3,8 +3,8 @@ using AcerteOGrid.Communication.Pilot.Response;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
-    public interface IPilotRegisterService
+    public interface IPilotUpdateService
     {
-        Task<ResponseRegisterPilotJson> Execute(ResquestRegisterPilotJson request);
+        Task Execute(int id, RequestUpdatePilotJson request);
     }
 }
