@@ -5,6 +5,6 @@ namespace AcerteOGrid.Application.Services.Pilot
 {
     public interface IPilotUpdateService
     {
-        Task Execute(int id, RequestUpdatePilotJson request);
+        Task Execute(int id, PilotUpdateRequestJson request);
     }
 }

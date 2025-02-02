@@ -1,6 +1,6 @@
 ﻿namespace AcerteOGrid.Communication.Pilot.Request
 {
-    public class RequestUpdatePilotJson: RequestInsertPilotJson
+    public class PilotUpdateRequestJson: PilotInsertRequestJson
     {
         public int Id { get; set; }
     }

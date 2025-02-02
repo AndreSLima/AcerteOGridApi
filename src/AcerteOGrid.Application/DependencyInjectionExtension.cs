@@ -1,5 +1,6 @@
 ﻿using AcerteOGrid.Application.AutoMapper;
 using AcerteOGrid.Application.Services.Pilot;
+using AcerteOGrid.Application.Services.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AcerteOGrid.Application
@@ -19,6 +20,8 @@ namespace AcerteOGrid.Application
             services.AddScoped<IPilotInsertService, PilotInsertService>();
             services.AddScoped<IPilotUpdateService, PilotUpdateService>();
             services.AddScoped<IPilotDeleteService, PilotDeleteService>();
+
+            services.AddScoped<IUserInsertService, UserInsertService>();
         }
 
         private static void AddAutoMpper(IServiceCollection services)

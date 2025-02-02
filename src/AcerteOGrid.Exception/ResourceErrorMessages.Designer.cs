@@ -79,6 +79,15 @@ namespace AcerteOGrid.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This email is already in use..
+        /// </summary>
+        public static string EMAIL_ALREADY_REGISTRED {
+            get {
+                return ResourceManager.GetString("EMAIL_ALREADY_REGISTRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gender Type is not valid..
         /// </summary>
         public static string GENDER_TYPE_INVALID {
@@ -93,6 +102,15 @@ namespace AcerteOGrid.Exception {
         public static string NAME_REQUIRED {
             get {
                 return ResourceManager.GetString("NAME_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is not valid..
+        /// </summary>
+        public static string PASSWORD_INVALID {
+            get {
+                return ResourceManager.GetString("PASSWORD_INVALID", resourceCulture);
             }
         }
         
@@ -120,6 +138,33 @@ namespace AcerteOGrid.Exception {
         public static string UNKNOWN_ERROR {
             get {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User name is required.
+        /// </summary>
+        public static string USE_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("USE_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User e-mail is required..
+        /// </summary>
+        public static string USER_EMAIL_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_EMAIL_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User e-mail is not valid..
+        /// </summary>
+        public static string USER_EMAIL_INVALID {
+            get {
+                return ResourceManager.GetString("USER_EMAIL_INVALID", resourceCulture);
             }
         }
     }

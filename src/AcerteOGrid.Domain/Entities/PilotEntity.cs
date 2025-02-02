@@ -8,5 +8,8 @@
         public DateTime? DateOfBirth { get; set; }
         public DateTime? DateOfDeath { get; set; }
         public bool? GenderType { get; set; }
+
+        //public int UserId { get; set; }
+        //public UserEntity User { get; set; } = default!;
     }
 }

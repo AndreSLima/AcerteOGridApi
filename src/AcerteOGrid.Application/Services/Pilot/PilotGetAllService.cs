@@ -15,11 +15,11 @@ namespace AcerteOGrid.Application.Services.Pilot
             _mapper = mapper;
         }
 
-        public async Task<List<ResponsePilotJson>> Execute()
+        public async Task<List<PilotResponseJson>> Execute()
         {
             var result = await _repository.GetAll();
 
-            return _mapper.Map<List<ResponsePilotJson>>(result);
+            return _mapper.Map<List<PilotResponseJson>>(result);
         }
     }
 }

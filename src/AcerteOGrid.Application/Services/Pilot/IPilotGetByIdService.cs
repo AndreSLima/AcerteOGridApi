@@ -4,6 +4,6 @@ namespace AcerteOGrid.Application.Services.Pilot
 {
     public interface IPilotGetByIdService
     {
-        Task<ResponsePilotJson> Execute(int id);
+        Task<PilotResponseJson> Execute(int id);
     }
 }

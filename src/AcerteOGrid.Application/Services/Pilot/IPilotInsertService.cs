@@ -5,6 +5,6 @@ namespace AcerteOGrid.Application.Services.Pilot
 {
     public interface IPilotInsertService
     {
-        Task<ResponsePilotJson> Execute(RequestInsertPilotJson request);
+        Task<PilotResponseJson> Execute(PilotInsertRequestJson request);
     }
 }

@@ -26,7 +26,7 @@ namespace AcerteOGrid.Application.Services.Pilot
             _mapper = mapper;
         }
 
-        public async Task Execute(int id, RequestUpdatePilotJson request)
+        public async Task Execute(int id, PilotUpdateRequestJson request)
         {
             Validate(request);
 
@@ -44,7 +44,7 @@ namespace AcerteOGrid.Application.Services.Pilot
             await _unitOfWork.Commit();
         }
 
-        private void Validate(RequestUpdatePilotJson request)
+        private void Validate(PilotUpdateRequestJson request)
         {
             var validator = new PilotUpdateValidator();
             var result = validator.Validate(request);

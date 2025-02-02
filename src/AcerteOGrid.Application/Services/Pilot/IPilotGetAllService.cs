@@ -4,6 +4,6 @@ namespace AcerteOGrid.Application.Services.Pilot
 {
     public interface IPilotGetAllService
     {
-        Task<List<ResponsePilotJson>> Execute();
+        Task<List<PilotResponseJson>> Execute();
     }
 }

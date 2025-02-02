@@ -1,6 +1,6 @@
 ﻿namespace AcerteOGrid.Domain.Enums
 {
-    public enum GenderType
+    public enum GenderTypeEnum
     {
         Male = 0,
         Female = 1,

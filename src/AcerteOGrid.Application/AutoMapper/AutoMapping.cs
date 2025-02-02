@@ -1,5 +1,6 @@
 ﻿using AcerteOGrid.Communication.Pilot.Request;
 using AcerteOGrid.Communication.Pilot.Response;
+using AcerteOGrid.Communication.User.Request;
 using AcerteOGrid.Domain.Entities;
 using AutoMapper;
 
@@ -15,13 +16,15 @@ namespace AcerteOGrid.Application.AutoMapper
 
         private void RequestToEntity()
         {
-            CreateMap<RequestInsertPilotJson, PilotEntity>();
+            CreateMap<PilotInsertRequestJson, PilotEntity>();
+            CreateMap<UserInsertRequestJson, UserEntity>()
+                .ForMember(userEntity => userEntity.Password, config => config.Ignore());
         }
 
         private void EntityToResponse()
         {
-            CreateMap<PilotEntity, ResponsePilotJson>();
-                //.ForMember(dest => dest.Name, config=> config.MapFrom(source=> source.Name));
+            CreateMap<PilotEntity, PilotResponseJson>();
+            //.ForMember(dest => dest.Name, config=> config.MapFrom(source=> source.Name));
         }
     }
 }

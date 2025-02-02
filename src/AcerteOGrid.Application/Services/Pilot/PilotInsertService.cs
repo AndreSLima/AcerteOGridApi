@@ -21,7 +21,7 @@ namespace AcerteOGrid.Application.Services.Pilot
             _mapper = mapper;
         }
 
-        public async Task<ResponsePilotJson> Execute(RequestInsertPilotJson request)
+        public async Task<PilotResponseJson> Execute(PilotInsertRequestJson request)
         {
             Validate(request);
 
@@ -30,10 +30,10 @@ namespace AcerteOGrid.Application.Services.Pilot
             entity = await _repository.Insert(entity);
             await _unitOfWork.Commit();
                         
-            return _mapper.Map<ResponsePilotJson>(entity);
+            return _mapper.Map<PilotResponseJson>(entity);
         }
 
-        private void Validate(RequestInsertPilotJson request)
+        private void Validate(PilotInsertRequestJson request)
         {
             var validator = new PilotInsertValidator();
             var result = validator.Validate(request);

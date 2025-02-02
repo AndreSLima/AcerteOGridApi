@@ -138,4 +138,19 @@
   <data name="PILOT_NOT_FOUND" xml:space="preserve">
     <value>Pilot not found,</value>
   </data>
+  <data name="USE_NAME_EMPTY" xml:space="preserve">
+    <value>User name is required</value>
+  </data>
+  <data name="USER_EMAIL_EMPTY" xml:space="preserve">
+    <value>User e-mail is required.</value>
+  </data>
+  <data name="USER_EMAIL_INVALID" xml:space="preserve">
+    <value>User e-mail is not valid.</value>
+  </data>
+  <data name="PASSWORD_INVALID" xml:space="preserve">
+    <value>Password is not valid.</value>
+  </data>
+  <data name="EMAIL_ALREADY_REGISTRED" xml:space="preserve">
+    <value>This email is already in use.</value>
+  </data>
 </root>

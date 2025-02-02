@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
-    public class PilotInsertValidator : AbstractValidator<RequestInsertPilotJson>
+    public class PilotInsertValidator : AbstractValidator<PilotInsertRequestJson>
     {
         public PilotInsertValidator()
         {

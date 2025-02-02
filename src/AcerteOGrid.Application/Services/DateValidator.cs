@@ -10,6 +10,11 @@ namespace AcerteOGrid.Application.Services
 
         public override string Name => "DateValidator";
 
+        protected override string GetDefaultMessageTemplate(string errorCode)
+        {
+            return $"{{{ERROR_MESSAGE_KEY}}}";
+        }
+
         public override bool IsValid(ValidationContext<T> context, DateTime DateOfBirth)
         {
             var returnValue = true;

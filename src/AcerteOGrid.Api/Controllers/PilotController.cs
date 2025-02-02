@@ -11,7 +11,7 @@ namespace AcerteOGrid.Api.Controllers
     public class PilotController : ControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(typeof(ResponsePilotJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PilotResponseJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAllPilots([FromServices] IPilotGetAllService service)
         {
@@ -25,7 +25,7 @@ namespace AcerteOGrid.Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [ProducesResponseType(typeof(ResponsePilotJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PilotResponseJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPilot([FromServices] IPilotGetByIdService service, [FromRoute] int id)
         {
@@ -35,9 +35,9 @@ namespace AcerteOGrid.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ResponsePilotJson), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(PilotResponseJson), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PostPilot([FromServices] IPilotInsertService service, [FromBody] RequestInsertPilotJson request)
+        public async Task<IActionResult> PostPilot([FromServices] IPilotInsertService service, [FromBody] PilotInsertRequestJson request)
         {
             var response = await service.Execute(request);
 
@@ -49,7 +49,7 @@ namespace AcerteOGrid.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutPilot([FromServices] IPilotUpdateService service, [FromRoute] int id, [FromBody] RequestUpdatePilotJson request)
+        public async Task<IActionResult> PutPilot([FromServices] IPilotUpdateService service, [FromRoute] int id, [FromBody] PilotUpdateRequestJson request)
         {
             await service.Execute(id, request);
 

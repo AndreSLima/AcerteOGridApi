@@ -1,6 +1,6 @@
 ﻿namespace AcerteOGrid.Communication.Pilot.Response
 {
-    public class ResponsePilotJson
+    public class PilotResponseJson
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
