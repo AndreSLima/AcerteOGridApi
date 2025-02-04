@@ -12,6 +12,9 @@ namespace AcerteOGrid.Infrastructure.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PilotEntity>().ToTable("AOG_TB_PILOTO");
+            modelBuilder.Entity<UserEntity>().ToTable("AOG_TB_USUARIO");
+
             modelBuilder.Entity<PilotEntity>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("PILID");

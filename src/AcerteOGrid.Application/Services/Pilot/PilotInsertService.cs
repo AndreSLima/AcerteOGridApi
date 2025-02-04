@@ -32,7 +32,7 @@ namespace AcerteOGrid.Application.Services.Pilot
             var entity = _mapper.Map<PilotEntity>(request);
 
             entity.UseInc = loggedUser.Id;
-            entity.DatInc = DateTime.UtcNow;
+            entity.DatInc = DateTime.Now;
 
             entity = await _repository.Insert(entity);
             await _unitOfWork.Commit();
