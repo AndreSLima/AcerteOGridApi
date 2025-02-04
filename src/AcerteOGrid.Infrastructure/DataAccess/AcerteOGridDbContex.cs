@@ -20,6 +20,8 @@ namespace AcerteOGrid.Infrastructure.DataAccess
                 entity.Property(e => e.DateOfBirth).HasColumnName("PILDATNAS");
                 entity.Property(e => e.DateOfDeath).HasColumnName("PILDATFAL");
                 entity.Property(e => e.GenderType).HasColumnName("PILSEX").HasColumnType("BIT");
+                entity.Property(e => e.UseInc).HasColumnName("USUINC");
+                entity.Property(e => e.DatInc).HasColumnName("DATINC");
             });
 
             modelBuilder.Entity<UserEntity>(entity =>

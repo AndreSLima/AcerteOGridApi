@@ -18,6 +18,11 @@ namespace AcerteOGrid.Infrastructure.DataAccess.Repositories
             return await _dbcontext.AOG_TB_USUARIO.AnyAsync(user => user.Email.Equals(email));
         }
 
+        public async Task<UserEntity?> GetUserByEmail(string email)
+        {
+            return await _dbcontext.AOG_TB_USUARIO.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email));
+        }
+
         public async Task Insert(UserEntity userEntity)
         {
             await _dbcontext.AOG_TB_USUARIO.AddAsync(userEntity);

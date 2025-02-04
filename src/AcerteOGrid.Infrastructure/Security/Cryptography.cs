@@ -11,5 +11,10 @@ namespace AcerteOGrid.Infrastructure.Security
 
             return passwordHash;
         }
+
+        public bool Verify(string password, string passwordHash)
+        {
+            return BC.BCrypt.Verify(password, passwordHash);
+        }
     }
 }

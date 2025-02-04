@@ -1,4 +1,5 @@
 ﻿using AcerteOGrid.Application.AutoMapper;
+using AcerteOGrid.Application.Services.Login;
 using AcerteOGrid.Application.Services.Pilot;
 using AcerteOGrid.Application.Services.User;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,8 @@ namespace AcerteOGrid.Application
             services.AddScoped<IPilotDeleteService, PilotDeleteService>();
 
             services.AddScoped<IUserInsertService, UserInsertService>();
+
+            services.AddScoped<ILoginService, LoginService>();
         }
 
         private static void AddAutoMpper(IServiceCollection services)

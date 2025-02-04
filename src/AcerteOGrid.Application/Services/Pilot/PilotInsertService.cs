@@ -3,6 +3,7 @@ using AcerteOGrid.Communication.Pilot.Response;
 using AcerteOGrid.Domain.Entities;
 using AcerteOGrid.Domain.Repositories;
 using AcerteOGrid.Domain.Repositories.Pilot;
+using AcerteOGrid.Domain.Services.LoggedUser;
 using AcerteOGrid.Exception.ExceptionsBase;
 using AutoMapper;
 
@@ -13,23 +14,29 @@ namespace AcerteOGrid.Application.Services.Pilot
         private readonly IPilotWriteOnlyRespository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILoggedUser _loggedUser;
 
-        public PilotInsertService(IPilotWriteOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public PilotInsertService(IPilotWriteOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper, ILoggedUser loggedUser)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _loggedUser = loggedUser;
         }
 
         public async Task<PilotResponseJson> Execute(PilotInsertRequestJson request)
         {
             Validate(request);
+            var loggedUser = await _loggedUser.Get();
 
             var entity = _mapper.Map<PilotEntity>(request);
 
+            entity.UseInc = loggedUser.Id;
+            entity.DatInc = DateTime.UtcNow;
+
             entity = await _repository.Insert(entity);
             await _unitOfWork.Commit();
-                        
+
             return _mapper.Map<PilotResponseJson>(entity);
         }
 
