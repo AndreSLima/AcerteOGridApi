@@ -27,12 +27,12 @@ namespace AcerteOGrid.Application.Services.Pilot
         public async Task<PilotResponseJson> Execute(PilotInsertRequestJson request)
         {
             Validate(request);
-            var loggedUser = await _loggedUser.Get();
 
             var entity = _mapper.Map<PilotEntity>(request);
 
-            entity.UseInc = loggedUser.Id;
-            entity.DatInc = DateTime.Now;
+            //var loggedUser = await _loggedUser.Get();
+            //entity.UserInclusion = loggedUser.Id;
+            //entity.DateInclusion = DateTime.Now;
 
             entity = await _repository.Insert(entity);
             await _unitOfWork.Commit();

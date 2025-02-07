@@ -10,21 +10,26 @@ namespace AcerteOGrid.Application.AutoMapper
     {
         public AutoMapping()
         {
-            RequestToEntity();
-            EntityToResponse();
+            UserMapping();
+            PilotMapping();
         }
 
-        private void RequestToEntity()
+        private void UserMapping()
         {
-            CreateMap<PilotInsertRequestJson, PilotEntity>();
             CreateMap<UserInsertRequestJson, UserEntity>()
+                .ForMember(userEntity => userEntity.UserTypeEntityId, config => config.MapFrom(source => 2))
                 .ForMember(userEntity => userEntity.Password, config => config.Ignore());
         }
 
-        private void EntityToResponse()
+        private void PilotMapping()
         {
             CreateMap<PilotEntity, PilotResponseJson>();
-            //.ForMember(dest => dest.Name, config=> config.MapFrom(source=> source.Name));
+
+            CreateMap<PilotInsertRequestJson, PilotEntity>()
+                .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => (int)source.GenderType == 1));
+
+            CreateMap<PilotUpdateRequestJson, PilotEntity>()
+                .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => (int)source.GenderType == 1));
         }
     }
 }

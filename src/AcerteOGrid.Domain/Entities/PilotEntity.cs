@@ -8,11 +8,9 @@
         public DateTime? DateOfBirth { get; set; }
         public DateTime? DateOfDeath { get; set; }
         public bool? GenderType { get; set; }
-        public int UseInc { get; set; }
-        public DateTime DatInc { get; set; }
-
-        //public int? UseCha { get; set; }
-        //public int UserId { get; set; }
-        //public UserEntity User { get; set; } = default!;
+        //public int UserInclusion { get; set; }
+        //public DateTime DateInclusion { get; set; }
+        //public int? UserChange { get; set; }
+        //public DateTime? DateChange { get; set; }
     }
 }

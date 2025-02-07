@@ -19,15 +19,13 @@ namespace AcerteOGrid.Application.Services.User
         private readonly IUserReadOnlyRepository _userReadOnlyRepository;
         private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
         private readonly IPasswordEncripter _passwordEncripter;
-        private readonly IAccessTokenGenerator _accessTokenGenerator;
 
-        public UserInsertService(IMapper mapper, IUnitOfWork unitOfWork, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository, IPasswordEncripter passwordEncripter, IAccessTokenGenerator accessTokenGenerator)
+        public UserInsertService(IMapper mapper, IUnitOfWork unitOfWork, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository, IPasswordEncripter passwordEncripter)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _userReadOnlyRepository = userReadOnlyRepository;
             _userWriteOnlyRepository = userWriteOnlyRepository;
-            _accessTokenGenerator = accessTokenGenerator;
             _passwordEncripter = passwordEncripter;
         }
 
@@ -45,7 +43,7 @@ namespace AcerteOGrid.Application.Services.User
             return new UserInsertResponseJson
             {
                 Name = user.Name,
-                Token = _accessTokenGenerator.Generate(user)
+                Email = user.Email
             };
         }
 

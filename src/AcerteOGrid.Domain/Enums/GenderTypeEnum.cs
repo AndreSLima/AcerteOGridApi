@@ -2,7 +2,7 @@
 {
     public enum GenderTypeEnum
     {
-        Male = 0,
-        Female = 1,
+        Female = 0,
+        Male = 1,
     }
 }
