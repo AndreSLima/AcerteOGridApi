@@ -4,9 +4,9 @@ namespace AcerteOGrid.Infrastructure.DataAccess
 {
     internal class UnitOfWork : IUnitOfWork
     {
-        private readonly AcerteOGridDbContex _dbContext;
+        private readonly AcerteOGridDbContext _dbContext;
 
-        public UnitOfWork(AcerteOGridDbContex dbContext)
+        public UnitOfWork(AcerteOGridDbContext dbContext)
         {
             _dbContext = dbContext;
         }

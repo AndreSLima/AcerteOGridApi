@@ -6,9 +6,9 @@ namespace AcerteOGrid.Infrastructure.DataAccess.Repositories
 {
     internal class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
     {
-        private readonly AcerteOGridDbContex _dbcontext;
+        private readonly AcerteOGridDbContext _dbcontext;
 
-        public UserRepository(AcerteOGridDbContex dbcontext)
+        public UserRepository(AcerteOGridDbContext dbcontext)
         {
             _dbcontext = dbcontext;
         }

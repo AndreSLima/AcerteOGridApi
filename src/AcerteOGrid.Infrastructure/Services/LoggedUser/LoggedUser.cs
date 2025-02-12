@@ -10,10 +10,10 @@ namespace AcerteOGrid.Infrastructure.Services.LoggedUser
 {
     internal class LoggedUser : ILoggedUser
     {
-        private readonly AcerteOGridDbContex _dbcontext;
+        private readonly AcerteOGridDbContext _dbcontext;
         private readonly ITokenProvider _tokenProvider;
 
-        public LoggedUser(AcerteOGridDbContex dbcontext, ITokenProvider tokenProvider)
+        public LoggedUser(AcerteOGridDbContext dbcontext, ITokenProvider tokenProvider)
         {
             _dbcontext = dbcontext;
             _tokenProvider = tokenProvider;

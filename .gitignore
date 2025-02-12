@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 appsettings.json
-AcerteOGridDbContex.cs
+AcerteOGridDbContext.cs
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

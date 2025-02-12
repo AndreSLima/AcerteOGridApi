@@ -50,7 +50,7 @@ namespace AcerteOGrid.Infrastructure
         {
             var connectionString = configuration.GetConnectionString("SqlConnection");
 
-            services.AddDbContext<AcerteOGridDbContex>(config => config.UseSqlServer(connectionString));
+            services.AddDbContext<AcerteOGridDbContext>(config => config.UseSqlServer(connectionString));
         }
     }
 }

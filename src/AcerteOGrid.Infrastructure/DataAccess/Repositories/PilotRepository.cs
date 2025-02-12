@@ -6,9 +6,9 @@ namespace AcerteOGrid.Infrastructure.DataAccess.Repositories
 {
     internal class PilotRepository : IPilotReadOnlyRespository, IPilotWriteOnlyRespository, IPilotUpdateOnlyRespository
     {
-        private readonly AcerteOGridDbContex _dbcontext;
+        private readonly AcerteOGridDbContext _dbcontext;
 
-        public PilotRepository(AcerteOGridDbContex dbcontext)
+        public PilotRepository(AcerteOGridDbContext dbcontext)
         {
             _dbcontext = dbcontext;
         }
