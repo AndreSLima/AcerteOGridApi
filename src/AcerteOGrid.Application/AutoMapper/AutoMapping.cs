@@ -2,6 +2,7 @@
 using AcerteOGrid.Communication.Pilot.Response;
 using AcerteOGrid.Communication.User.Request;
 using AcerteOGrid.Domain.Entities;
+using AcerteOGrid.Domain.Enums;
 using AutoMapper;
 
 namespace AcerteOGrid.Application.AutoMapper
@@ -26,10 +27,10 @@ namespace AcerteOGrid.Application.AutoMapper
             CreateMap<PilotEntity, PilotResponseJson>();
 
             CreateMap<PilotInsertRequestJson, PilotEntity>()
-                .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => (int)source.GenderType == 1));
+                .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => source.GenderType == GenderTypeEnum.Male));
 
             CreateMap<PilotUpdateRequestJson, PilotEntity>()
-                .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => (int)source.GenderType == 1));
+                .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => source.GenderType == GenderTypeEnum.Male));
         }
     }
 }
