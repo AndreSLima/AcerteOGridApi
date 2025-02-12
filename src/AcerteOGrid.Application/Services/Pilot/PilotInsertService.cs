@@ -4,6 +4,7 @@ using AcerteOGrid.Domain.Entities;
 using AcerteOGrid.Domain.Repositories;
 using AcerteOGrid.Domain.Repositories.Pilot;
 using AcerteOGrid.Domain.Services.LoggedUser;
+using AcerteOGrid.Exception;
 using AcerteOGrid.Exception.ExceptionsBase;
 using AutoMapper;
 
@@ -26,21 +27,25 @@ namespace AcerteOGrid.Application.Services.Pilot
 
         public async Task<PilotResponseJson> Execute(PilotInsertRequestJson request)
         {
-            Validate(request);
+            var loggedUser = await _loggedUser.Get();
+
+            Validate(request, loggedUser);
 
             var entity = _mapper.Map<PilotEntity>(request);
 
-            var loggedUser = await _loggedUser.Get();
             entity.UserInclusion = loggedUser.Id;
-
             entity = await _repository.Insert(entity);
+
             await _unitOfWork.Commit();
 
             return _mapper.Map<PilotResponseJson>(entity);
         }
 
-        private void Validate(PilotInsertRequestJson request)
+        private void Validate(PilotInsertRequestJson request, UserEntity user)
         {
+            if (!user.UserTypeEntity.Maintenance)
+                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+
             var validator = new PilotInsertValidator();
             var result = validator.Validate(request);
 

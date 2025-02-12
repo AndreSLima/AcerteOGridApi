@@ -2,7 +2,7 @@
 
 namespace AcerteOGrid.Domain.Entities
 {
-    public class UserEntity
+    public class UserEntity : BaseEntity
     {
         public int Id { get; set; }
         [ForeignKey("TipoUsuario")]
@@ -11,6 +11,6 @@ namespace AcerteOGrid.Domain.Entities
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public Guid Identifier { get; set; }
-        public UserTypeEntity UserTypeEntity { get; set; } = default!;
+        public virtual UserTypeEntity UserTypeEntity { get; set; } = default!;
     }
 }

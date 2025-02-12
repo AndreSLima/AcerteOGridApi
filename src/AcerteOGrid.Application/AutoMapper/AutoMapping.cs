@@ -26,7 +26,8 @@ namespace AcerteOGrid.Application.AutoMapper
         {
             CreateMap<UserInsertRequestJson, UserEntity>()
                 .ForMember(userEntity => userEntity.UserTypeEntityId, config => config.MapFrom(source => 2))
-                .ForMember(userEntity => userEntity.Password, config => config.Ignore());
+                .ForMember(userEntity => userEntity.Password, config => config.Ignore())
+                .IncludeBase<BaseInsertRequestJson, BaseEntity>();
         }
 
         private void PilotMapping()

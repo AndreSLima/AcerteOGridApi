@@ -4,7 +4,7 @@ using AcerteOGrid.Domain.Entities;
 using AcerteOGrid.Domain.Repositories;
 using AcerteOGrid.Domain.Repositories.User;
 using AcerteOGrid.Domain.Security.Cryptography;
-using AcerteOGrid.Domain.Security.Token;
+using AcerteOGrid.Domain.Services.LoggedUser;
 using AcerteOGrid.Exception;
 using AcerteOGrid.Exception.ExceptionsBase;
 using AutoMapper;
@@ -19,36 +19,45 @@ namespace AcerteOGrid.Application.Services.User
         private readonly IUserReadOnlyRepository _userReadOnlyRepository;
         private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
         private readonly IPasswordEncripter _passwordEncripter;
+        private readonly ILoggedUser _loggedUser;
 
-        public UserInsertService(IMapper mapper, IUnitOfWork unitOfWork, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository, IPasswordEncripter passwordEncripter)
+        public UserInsertService(IMapper mapper, IUnitOfWork unitOfWork, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository, IPasswordEncripter passwordEncripter, ILoggedUser loggedUser)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _userReadOnlyRepository = userReadOnlyRepository;
             _userWriteOnlyRepository = userWriteOnlyRepository;
             _passwordEncripter = passwordEncripter;
+            _loggedUser = loggedUser;
         }
 
         public async Task<UserInsertResponseJson> Execute(UserInsertRequestJson request)
         {
-            await Validate(request);
+            var loggedUser = await _loggedUser.Get();
 
-            var user = _mapper.Map<UserEntity>(request);
-            user.Password = _passwordEncripter.Encrypt(request.Password);
-            user.Identifier = Guid.NewGuid();
+            await Validate(request, loggedUser);
 
-            await _userWriteOnlyRepository.Insert(user);
+            var entity = _mapper.Map<UserEntity>(request);
+
+            entity.Password = _passwordEncripter.Encrypt(request.Password);
+            entity.Identifier = Guid.NewGuid();
+            entity.UserInclusion = loggedUser.Id;
+
+            await _userWriteOnlyRepository.Insert(entity);
             await _unitOfWork.Commit();
 
             return new UserInsertResponseJson
             {
-                Name = user.Name,
-                Email = user.Email
+                Name = entity.Name,
+                Email = entity.Email
             };
         }
 
-        private async Task Validate(UserInsertRequestJson request)
+        private async Task Validate(UserInsertRequestJson request, UserEntity user)
         {
+            if (!user.UserTypeEntity.Maintenance)
+                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+
             var result = new UserInsertValidator().Validate(request);
 
             var emailExists = await _userReadOnlyRepository.ExistsActiveUserWithEmail(request.Email);

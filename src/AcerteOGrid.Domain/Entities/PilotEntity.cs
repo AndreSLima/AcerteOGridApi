@@ -1,6 +1,6 @@
 ﻿namespace AcerteOGrid.Domain.Entities
 {
-    public class PilotEntity: BaseEntity
+    public class PilotEntity : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

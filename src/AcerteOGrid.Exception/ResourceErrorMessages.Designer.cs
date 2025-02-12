@@ -142,6 +142,15 @@ namespace AcerteOGrid.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unauthorized..
+        /// </summary>
+        public static string UNAUTHORIZED {
+            get {
+                return ResourceManager.GetString("UNAUTHORIZED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown error..
         /// </summary>
         public static string UNKNOWN_ERROR {

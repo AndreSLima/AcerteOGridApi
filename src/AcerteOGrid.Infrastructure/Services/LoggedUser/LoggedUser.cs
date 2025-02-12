@@ -27,7 +27,7 @@ namespace AcerteOGrid.Infrastructure.Services.LoggedUser
             var jwtSecurityToken = tokenHandler.ReadJwtToken(token);
             var identifier = jwtSecurityToken.Claims.First(claim => claim.Type == ClaimTypes.Sid).Value;
 
-            return await _dbcontext.AOG_TB_USUARIO.AsNoTracking().FirstAsync(user => user.Identifier == Guid.Parse(identifier));
+            return await _dbcontext.AOG_TB_USUARIO.AsNoTracking().Include(userEntity => userEntity.UserTypeEntity).FirstAsync(user => user.Identifier == Guid.Parse(identifier));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AcerteOGrid.Communication.Pilot.Request;
+using AcerteOGrid.Domain.Entities;
 using AcerteOGrid.Domain.Repositories;
 using AcerteOGrid.Domain.Repositories.Pilot;
 using AcerteOGrid.Domain.Services.LoggedUser;
@@ -25,7 +26,9 @@ namespace AcerteOGrid.Application.Services.Pilot
 
         public async Task Execute(int id, PilotUpdateRequestJson request)
         {
-            Validate(request);
+            var loggedUser = await _loggedUser.Get();
+
+            Validate(request, loggedUser);
 
             var entity = await _repository.GetById(id);
 
@@ -36,7 +39,6 @@ namespace AcerteOGrid.Application.Services.Pilot
 
             _mapper.Map(request, entity);
 
-            var loggedUser = await _loggedUser.Get();
             entity.UserChange = loggedUser.Id;
 
             _repository.Update(entity);
@@ -44,8 +46,11 @@ namespace AcerteOGrid.Application.Services.Pilot
             await _unitOfWork.Commit();
         }
 
-        private void Validate(PilotUpdateRequestJson request)
+        private void Validate(PilotUpdateRequestJson request, UserEntity user)
         {
+            if (!user.UserTypeEntity.Maintenance)
+                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+
             var validator = new PilotUpdateValidator();
             var result = validator.Validate(request);
 
