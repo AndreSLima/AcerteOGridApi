@@ -1,6 +1,6 @@
 ﻿namespace AcerteOGrid.Domain.Entities
 {
-    public class PilotEntity
+    public class PilotEntity: BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -8,9 +8,5 @@
         public DateTime? DateOfBirth { get; set; }
         public DateTime? DateOfDeath { get; set; }
         public bool? GenderType { get; set; }
-        //public int UserInclusion { get; set; }
-        //public DateTime DateInclusion { get; set; }
-        //public int? UserChange { get; set; }
-        //public DateTime? DateChange { get; set; }
     }
 }

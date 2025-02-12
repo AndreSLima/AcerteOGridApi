@@ -2,7 +2,7 @@
 
 namespace AcerteOGrid.Communication.Pilot.Request
 {
-    public class PilotUpdateRequestJson
+    public class PilotUpdateRequestJson : BaseUpdateRequestJson
     {
         public string Name { get; set; } = string.Empty;
         public string ShortName { get; set; } = string.Empty;

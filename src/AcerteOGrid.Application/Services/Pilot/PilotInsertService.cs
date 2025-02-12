@@ -30,9 +30,8 @@ namespace AcerteOGrid.Application.Services.Pilot
 
             var entity = _mapper.Map<PilotEntity>(request);
 
-            //var loggedUser = await _loggedUser.Get();
-            //entity.UserInclusion = loggedUser.Id;
-            //entity.DateInclusion = DateTime.Now;
+            var loggedUser = await _loggedUser.Get();
+            entity.UserInclusion = loggedUser.Id;
 
             entity = await _repository.Insert(entity);
             await _unitOfWork.Commit();

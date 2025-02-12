@@ -43,8 +43,10 @@ namespace AcerteOGrid.Infrastructure.DataAccess
                 entity.Property(e => e.DateOfBirth).HasColumnName("PILDATNAS");
                 entity.Property(e => e.DateOfDeath).HasColumnName("PILDATFAL");
                 entity.Property(e => e.GenderType).HasColumnName("PILSEX").HasColumnType("BIT");
-                //entity.Property(e => e.UseInc).HasColumnName("USUINC");
-                //entity.Property(e => e.DatInc).HasColumnName("DATINC");
+                entity.Property(e => e.UserInclusion).HasColumnName("USUINC");
+                entity.Property(e => e.DateInclusion).HasColumnName("DATINC");
+                entity.Property(e => e.UserChange).HasColumnName("USUALT");
+                entity.Property(e => e.DateChange).HasColumnName("DATALT");
             });
         }
     }

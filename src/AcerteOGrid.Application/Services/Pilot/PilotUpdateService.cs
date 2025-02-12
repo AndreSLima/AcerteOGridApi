@@ -1,15 +1,10 @@
-﻿using AcerteOGrid.Communication.Pilot.Response;
-using AcerteOGrid.Domain.Repositories.Pilot;
+﻿using AcerteOGrid.Communication.Pilot.Request;
 using AcerteOGrid.Domain.Repositories;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AcerteOGrid.Communication.Pilot.Request;
-using AcerteOGrid.Exception.ExceptionsBase;
+using AcerteOGrid.Domain.Repositories.Pilot;
+using AcerteOGrid.Domain.Services.LoggedUser;
 using AcerteOGrid.Exception;
+using AcerteOGrid.Exception.ExceptionsBase;
+using AutoMapper;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
@@ -18,28 +13,33 @@ namespace AcerteOGrid.Application.Services.Pilot
         private readonly IPilotUpdateOnlyRespository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILoggedUser _loggedUser;
 
-        public PilotUpdateService(IPilotUpdateOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public PilotUpdateService(IPilotUpdateOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper, ILoggedUser loggedUser)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _loggedUser = loggedUser;
         }
 
         public async Task Execute(int id, PilotUpdateRequestJson request)
         {
             Validate(request);
 
-            var pilot = await _repository.GetById(id);
+            var entity = await _repository.GetById(id);
 
-            if (pilot is null)
+            if (entity is null)
             {
                 throw new NotFoundException(ResourceErrorMessages.PILOT_NOT_FOUND);
             }
 
-            _mapper.Map(request, pilot);
+            _mapper.Map(request, entity);
 
-            _repository.Update(pilot);
+            var loggedUser = await _loggedUser.Get();
+            entity.UserChange = loggedUser.Id;
+
+            _repository.Update(entity);
 
             await _unitOfWork.Commit();
         }
