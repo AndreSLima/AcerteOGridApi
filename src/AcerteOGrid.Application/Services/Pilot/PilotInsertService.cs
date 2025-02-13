@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
-    public class PilotInsertService : IPilotInsertService
+    public class PilotInsertService : ServiceBase<PilotInsertRequestJson>, IPilotInsertService
     {
         private readonly IPilotWriteOnlyRespository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -41,10 +41,9 @@ namespace AcerteOGrid.Application.Services.Pilot
             return _mapper.Map<PilotResponseJson>(entity);
         }
 
-        private void Validate(PilotInsertRequestJson request, UserEntity user)
+        protected override void Validate(PilotInsertRequestJson request, UserEntity user)
         {
-            if (!user.UserTypeEntity.Maintenance)
-                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+            base.Validate(request, user);
 
             var validator = new PilotInsertValidator();
             var result = validator.Validate(request);

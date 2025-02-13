@@ -12,10 +12,10 @@ namespace AcerteOGrid.Application.AutoMapper
     {
         public AutoMapping()
         {
-            CreateMap<BaseInsertRequestJson, BaseEntity>()
+            CreateMap<ABaseInsertRequestJson, BaseEntity>()
                 .ForMember(baseEntity => baseEntity.DateInclusion, config => config.MapFrom(source => DateTime.Now));
 
-            CreateMap<BaseUpdateRequestJson, BaseEntity>()
+            CreateMap<ABaseUpdateRequestJson, BaseEntity>()
                 .ForMember(baseEntity => baseEntity.DateChange, config => config.MapFrom(source => DateTime.Now));
 
             UserMapping();
@@ -27,7 +27,7 @@ namespace AcerteOGrid.Application.AutoMapper
             CreateMap<UserInsertRequestJson, UserEntity>()
                 .ForMember(userEntity => userEntity.UserTypeEntityId, config => config.MapFrom(source => 2))
                 .ForMember(userEntity => userEntity.Password, config => config.Ignore())
-                .IncludeBase<BaseInsertRequestJson, BaseEntity>();
+                .IncludeBase<ABaseInsertRequestJson, BaseEntity>();
         }
 
         private void PilotMapping()
@@ -36,11 +36,11 @@ namespace AcerteOGrid.Application.AutoMapper
 
             CreateMap<PilotInsertRequestJson, PilotEntity>()
                 .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => source.GenderType == GenderTypeEnum.Male))
-                .IncludeBase<BaseInsertRequestJson, BaseEntity>();
+                .IncludeBase<ABaseInsertRequestJson, BaseEntity>();
 
             CreateMap<PilotUpdateRequestJson, PilotEntity>()
                 .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => source.GenderType == GenderTypeEnum.Male))
-                .IncludeBase<BaseUpdateRequestJson, BaseEntity>();
+                .IncludeBase<ABaseUpdateRequestJson, BaseEntity>();
         }
     }
 }

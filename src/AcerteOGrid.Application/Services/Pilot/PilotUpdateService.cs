@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
-    public class PilotUpdateService : IPilotUpdateService
+    public class PilotUpdateService : ServiceBase<PilotUpdateRequestJson>, IPilotUpdateService
     {
         private readonly IPilotUpdateOnlyRespository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -46,10 +46,9 @@ namespace AcerteOGrid.Application.Services.Pilot
             await _unitOfWork.Commit();
         }
 
-        private void Validate(PilotUpdateRequestJson request, UserEntity user)
+        protected override void Validate(PilotUpdateRequestJson request, UserEntity user)
         {
-            if (!user.UserTypeEntity.Maintenance)
-                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+            base.Validate(request, user);
 
             var validator = new PilotUpdateValidator();
             var result = validator.Validate(request);

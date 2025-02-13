@@ -12,7 +12,7 @@ using FluentValidation.Results;
 
 namespace AcerteOGrid.Application.Services.User
 {
-    public class UserInsertService : IUserInsertService
+    public class UserInsertService : ServiceBase<UserInsertRequestJson>, IUserInsertService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -35,7 +35,7 @@ namespace AcerteOGrid.Application.Services.User
         {
             var loggedUser = await _loggedUser.Get();
 
-            await Validate(request, loggedUser);
+            Validate(request, loggedUser);
 
             var entity = _mapper.Map<UserEntity>(request);
 
@@ -53,14 +53,13 @@ namespace AcerteOGrid.Application.Services.User
             };
         }
 
-        private async Task Validate(UserInsertRequestJson request, UserEntity user)
+        protected override void Validate(UserInsertRequestJson request, UserEntity user)
         {
-            if (!user.UserTypeEntity.Maintenance)
-                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+            base.Validate(request, user);
 
             var result = new UserInsertValidator().Validate(request);
 
-            var emailExists = await _userReadOnlyRepository.ExistsActiveUserWithEmail(request.Email);
+            var emailExists = _userReadOnlyRepository.ExistsActiveUserWithEmail(request.Email);
             if (emailExists)
             {
                 result.Errors.Add(new ValidationFailure(string.Empty, ResourceErrorMessages.EMAIL_ALREADY_REGISTRED));

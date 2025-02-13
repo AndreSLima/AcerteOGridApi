@@ -1,6 +1,6 @@
 ﻿namespace AcerteOGrid.Communication
 {
-    public abstract class BaseInsertRequestJson
+    public abstract class ABaseRequestJson
     {
     }
 }
