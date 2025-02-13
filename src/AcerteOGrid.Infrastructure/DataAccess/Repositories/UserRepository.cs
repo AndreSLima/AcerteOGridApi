@@ -15,17 +15,17 @@ namespace AcerteOGrid.Infrastructure.DataAccess.Repositories
 
         public bool ExistsActiveUserWithEmail(string email)
         {
-            return _dbcontext.AOG_TB_USUARIO.Any(user => user.Email.Equals(email));
+            return _dbcontext.UserTable.Any(user => user.Email.Equals(email));
         }
 
         public async Task<UserEntity?> GetUserByEmail(string email)
         {
-            return await _dbcontext.AOG_TB_USUARIO.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email));
+            return await _dbcontext.UserTable.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email));
         }
 
         public async Task Insert(UserEntity userEntity)
         {
-            await _dbcontext.AOG_TB_USUARIO.AddAsync(userEntity);
+            await _dbcontext.UserTable.AddAsync(userEntity);
         }
     }
 }

@@ -15,40 +15,40 @@ namespace AcerteOGrid.Infrastructure.DataAccess.Repositories
 
         public async Task<List<PilotEntity>> GetAll()
         {
-            return await _dbcontext.AOG_TB_PILOTO.AsNoTracking().ToListAsync();
+            return await _dbcontext.PilotTable.AsNoTracking().ToListAsync();
         }
 
         async Task<PilotEntity?> IPilotReadOnlyRespository.GetById(int id)
         {
-            return await _dbcontext.AOG_TB_PILOTO.AsNoTracking().FirstOrDefaultAsync(pilot => pilot.Id == id);
+            return await _dbcontext.PilotTable.AsNoTracking().FirstOrDefaultAsync(pilot => pilot.Id == id);
         }
 
         async Task<PilotEntity?> IPilotUpdateOnlyRespository.GetById(int id)
         {
-            return await _dbcontext.AOG_TB_PILOTO.FirstOrDefaultAsync(pilot => pilot.Id == id);
+            return await _dbcontext.PilotTable.FirstOrDefaultAsync(pilot => pilot.Id == id);
         }
 
         public async Task<PilotEntity> Insert(PilotEntity pilotEntity)
         {
-            await _dbcontext.AOG_TB_PILOTO.AddAsync(pilotEntity);
+            await _dbcontext.PilotTable.AddAsync(pilotEntity);
 
             return pilotEntity;
         }
 
         public void Update(PilotEntity pilotEntity)
         {
-            _dbcontext.AOG_TB_PILOTO.Update(pilotEntity);
+            _dbcontext.PilotTable.Update(pilotEntity);
         }
 
         public async Task<bool> Delete(int id)
         {
-            var result = await _dbcontext.AOG_TB_PILOTO.FirstOrDefaultAsync(pilot => pilot.Id == id);
+            var result = await _dbcontext.PilotTable.FirstOrDefaultAsync(pilot => pilot.Id == id);
             if (result is null)
             {
                 return false;
             }
 
-            _dbcontext.AOG_TB_PILOTO.Remove(result);
+            _dbcontext.PilotTable.Remove(result);
 
             return true;
         }
