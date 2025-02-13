@@ -156,4 +156,7 @@
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>E-mail e/ou senha inválidos.</value>
   </data>
+  <data name="UNAUTHORIZED" xml:space="preserve">
+    <value>Não autorizado.</value>
+  </data>
 </root>
