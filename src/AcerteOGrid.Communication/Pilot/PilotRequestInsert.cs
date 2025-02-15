@@ -1,8 +1,8 @@
 ﻿using AcerteOGrid.Domain.Enums;
 
-namespace AcerteOGrid.Communication.Pilot.Request
+namespace AcerteOGrid.Communication.Pilot
 {
-    public class PilotInsertRequestJson: ABaseInsertRequestJson
+    public class PilotRequestInsert : ABaseRequestInsert
     {
         public string Name { get; set; } = string.Empty;
         public string ShortName { get; set; } = string.Empty;

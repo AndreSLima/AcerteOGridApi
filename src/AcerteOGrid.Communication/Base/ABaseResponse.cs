@@ -1,6 +1,6 @@
 ﻿namespace AcerteOGrid.Communication
 {
-    public abstract class ABaseRequestJson
+    public class ABaseResponse
     {
     }
 }

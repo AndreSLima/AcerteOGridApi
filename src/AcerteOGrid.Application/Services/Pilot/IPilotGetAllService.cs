@@ -1,9 +1,9 @@
-﻿using AcerteOGrid.Communication.Pilot.Response;
+﻿using AcerteOGrid.Communication.Pilot;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
     public interface IPilotGetAllService
     {
-        Task<List<PilotResponseJson>> Execute();
+        Task<List<PilotResponse>> Execute();
     }
 }

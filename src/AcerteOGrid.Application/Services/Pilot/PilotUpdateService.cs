@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Pilot.Request;
+﻿using AcerteOGrid.Communication.Pilot;
 using AcerteOGrid.Domain.Entities;
 using AcerteOGrid.Domain.Repositories;
 using AcerteOGrid.Domain.Repositories.Pilot;
@@ -9,28 +9,25 @@ using AutoMapper;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
-    public class PilotUpdateService : ServiceBase<PilotUpdateRequestJson>, IPilotUpdateService
+    public class PilotUpdateService : ServiceBase<PilotRequestUpdate, PilotResponse>, IPilotUpdateService
     {
         private readonly IPilotUpdateOnlyRespository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILoggedUser _loggedUser;
 
-        public PilotUpdateService(IPilotUpdateOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper, ILoggedUser loggedUser)
+        public PilotUpdateService(IPilotUpdateOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper, ILoggedUser loggedUser) : base(loggedUser)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _loggedUser = loggedUser;
         }
 
-        public async Task Execute(int id, PilotUpdateRequestJson request)
+        public override async Task<PilotResponse> Execute(PilotRequestUpdate request)
         {
-            var loggedUser = await _loggedUser.Get();
+            await base.Execute(request);
+            Validate(request);
 
-            Validate(request, loggedUser);
-
-            var entity = await _repository.GetById(id);
+            var entity = await _repository.GetById(Convert.ToInt32(request.Id));
 
             if (entity is null)
             {
@@ -39,16 +36,21 @@ namespace AcerteOGrid.Application.Services.Pilot
 
             _mapper.Map(request, entity);
 
-            entity.UserChange = loggedUser.Id;
+            entity.UserChange = base.baseLoggedUser!.Id;
 
             _repository.Update(entity);
 
             await _unitOfWork.Commit();
+
+            return _mapper.Map<PilotResponse>(entity);
         }
 
-        protected override void Validate(PilotUpdateRequestJson request, UserEntity user)
+        private void Validate(PilotRequestUpdate request)
         {
-            base.Validate(request, user);
+            if (!base.UserMaintence())
+            {
+                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+            }
 
             var validator = new PilotUpdateValidator();
             var result = validator.Validate(request);

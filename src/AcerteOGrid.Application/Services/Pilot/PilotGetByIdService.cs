@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Pilot.Response;
+﻿using AcerteOGrid.Communication.Pilot;
 using AcerteOGrid.Domain.Repositories.Pilot;
 using AcerteOGrid.Exception;
 using AcerteOGrid.Exception.ExceptionsBase;
@@ -17,7 +17,7 @@ namespace AcerteOGrid.Application.Services.Pilot
             _mapper = mapper;
         }
 
-        public async Task<PilotResponseJson> Execute(int id)
+        public async Task<PilotResponse> Execute(int id)
         {
             var result = await _repository.GetById(id);
 
@@ -26,7 +26,7 @@ namespace AcerteOGrid.Application.Services.Pilot
                 throw new NotFoundException(ResourceErrorMessages.PILOT_NOT_FOUND);
             }
 
-            return _mapper.Map<PilotResponseJson>(result);
+            return _mapper.Map<PilotResponse>(result);
         }
     }
 }

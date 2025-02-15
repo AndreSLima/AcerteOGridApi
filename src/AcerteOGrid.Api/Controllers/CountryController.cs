@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Country.Request;
+﻿using AcerteOGrid.Communication.Country;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AcerteOGrid.Api.Controllers
@@ -8,7 +8,7 @@ namespace AcerteOGrid.Api.Controllers
     public class CountryController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Register(ResquestRegisterCountryJson request)
+        public IActionResult Register(CountryResquestInsert request)
         {
             return Created();
         }

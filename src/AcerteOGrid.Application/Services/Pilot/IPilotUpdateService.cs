@@ -1,10 +1,9 @@
-﻿using AcerteOGrid.Communication.Pilot.Request;
-using AcerteOGrid.Communication.Pilot.Response;
+﻿using AcerteOGrid.Communication.Pilot;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
     public interface IPilotUpdateService
     {
-        Task Execute(int id, PilotUpdateRequestJson request);
+        Task<PilotResponse> Execute(PilotRequestUpdate request);
     }
 }

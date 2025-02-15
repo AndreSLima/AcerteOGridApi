@@ -19,7 +19,7 @@ namespace AcerteOGrid.Application.Services.Login
             _accessTokenGenerator = accessTokenGenerator;
         }
 
-        public async Task<LoginResponseJson> Execute(LoginRequestJSon request)
+        public async Task<LoginResponse> Execute(LoginRequest request)
         {
             var user = await _repository.GetUserByEmail(request.Email);
 
@@ -35,7 +35,7 @@ namespace AcerteOGrid.Application.Services.Login
                 throw new InvalidLoginException();
             }
 
-            return new LoginResponseJson
+            return new LoginResponse
             {
                 Name = user.Name,
                 Token = _accessTokenGenerator.Generate(user)

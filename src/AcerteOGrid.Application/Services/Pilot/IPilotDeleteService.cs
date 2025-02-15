@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Pilot.Response;
+﻿using AcerteOGrid.Communication.Pilot;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {

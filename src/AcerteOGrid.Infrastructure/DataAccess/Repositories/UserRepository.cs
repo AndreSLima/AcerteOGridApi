@@ -13,9 +13,9 @@ namespace AcerteOGrid.Infrastructure.DataAccess.Repositories
             _dbcontext = dbcontext;
         }
 
-        public bool ExistsActiveUserWithEmail(string email)
+        public async Task<bool> ExistsActiveUserWithEmail(string email)
         {
-            return _dbcontext.UserTable.Any(user => user.Email.Equals(email));
+            return await _dbcontext.UserTable.AnyAsync(user => user.Email.Equals(email));
         }
 
         public async Task<UserEntity?> GetUserByEmail(string email)

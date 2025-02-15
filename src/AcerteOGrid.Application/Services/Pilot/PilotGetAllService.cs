@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Pilot.Response;
+﻿using AcerteOGrid.Communication.Pilot;
 using AcerteOGrid.Domain.Repositories.Pilot;
 using AutoMapper;
 
@@ -15,11 +15,11 @@ namespace AcerteOGrid.Application.Services.Pilot
             _mapper = mapper;
         }
 
-        public async Task<List<PilotResponseJson>> Execute()
+        public async Task<List<PilotResponse>> Execute()
         {
             var result = await _repository.GetAll();
 
-            return _mapper.Map<List<PilotResponseJson>>(result);
+            return _mapper.Map<List<PilotResponse>>(result);
         }
     }
 }

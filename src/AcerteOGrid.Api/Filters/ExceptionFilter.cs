@@ -1,4 +1,4 @@
-﻿using AcerteOGrid.Communication.Error.Response;
+﻿using AcerteOGrid.Communication.Error;
 using AcerteOGrid.Exception;
 using AcerteOGrid.Exception.ExceptionsBase;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +23,7 @@ namespace AcerteOGrid.Api.Filters
         private void HandleProjectException(ExceptionContext context)
         {
             var acerteOGridException = context.Exception as AcerteOGridException;
-            var errorResponse = new ResponseErrorJson(acerteOGridException!.GetErrors());
+            var errorResponse = new ErrorResponse(acerteOGridException!.GetErrors());
 
             context.HttpContext.Response.StatusCode = acerteOGridException.StatusCode;
             context.Result = new ObjectResult(errorResponse);
@@ -31,7 +31,7 @@ namespace AcerteOGrid.Api.Filters
 
         private void ThrowUnkowError(ExceptionContext context)
         {
-            var errorResponse = new ResponseErrorJson(ResourceErrorMessages.UNKNOWN_ERROR);
+            var errorResponse = new ErrorResponse(ResourceErrorMessages.UNKNOWN_ERROR);
 
             context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Result = new ObjectResult(errorResponse);

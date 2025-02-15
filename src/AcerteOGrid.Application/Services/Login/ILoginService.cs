@@ -4,6 +4,6 @@ namespace AcerteOGrid.Application.Services.Login
 {
     public interface ILoginService
     {
-        Task<LoginResponseJson> Execute(LoginRequestJSon request);
+        Task<LoginResponse> Execute(LoginRequest request);
     }
 }

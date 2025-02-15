@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Country\Response\" />
+    <Compile Remove="Country\Response\**" />
+    <EmbeddedResource Remove="Country\Response\**" />
+    <None Remove="Country\Response\**" />
   </ItemGroup>
 
   <ItemGroup>

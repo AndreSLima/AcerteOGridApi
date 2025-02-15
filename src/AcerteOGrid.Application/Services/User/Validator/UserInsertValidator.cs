@@ -1,10 +1,10 @@
-﻿using AcerteOGrid.Communication.User.Request;
+﻿using AcerteOGrid.Communication.User;
 using AcerteOGrid.Exception;
 using FluentValidation;
 
 namespace AcerteOGrid.Application.Services.User
 {
-    public class UserInsertValidator : AbstractValidator<UserInsertRequestJson>
+    public class UserInsertValidator : AbstractValidator<UserRequestInsert>
     {
         public UserInsertValidator()
         {
@@ -13,7 +13,7 @@ namespace AcerteOGrid.Application.Services.User
                 .NotEmpty().WithMessage(ResourceErrorMessages.USER_EMAIL_EMPTY)
                 .EmailAddress().WithMessage(ResourceErrorMessages.USER_EMAIL_INVALID);
 
-            RuleFor(user => user.Password).SetValidator(new PasswordValidator<UserInsertRequestJson>());
+            RuleFor(user => user.Password).SetValidator(new PasswordValidator<UserRequestInsert>());
         }
     }
 }

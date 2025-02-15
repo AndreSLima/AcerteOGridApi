@@ -1,5 +1,4 @@
-﻿using AcerteOGrid.Communication.Pilot.Request;
-using AcerteOGrid.Communication.Pilot.Response;
+﻿using AcerteOGrid.Communication.Pilot;
 using AcerteOGrid.Domain.Entities;
 using AcerteOGrid.Domain.Repositories;
 using AcerteOGrid.Domain.Repositories.Pilot;
@@ -10,40 +9,40 @@ using AutoMapper;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
-    public class PilotInsertService : ServiceBase<PilotInsertRequestJson>, IPilotInsertService
+    public class PilotInsertService : ServiceBase<PilotRequestInsert, PilotResponse>, IPilotInsertService
     {
         private readonly IPilotWriteOnlyRespository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILoggedUser _loggedUser;
 
-        public PilotInsertService(IPilotWriteOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper, ILoggedUser loggedUser)
+        public PilotInsertService(IPilotWriteOnlyRespository repository, IUnitOfWork unitOfWork, IMapper mapper, ILoggedUser loggedUser) : base(loggedUser)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _loggedUser = loggedUser;
         }
 
-        public async Task<PilotResponseJson> Execute(PilotInsertRequestJson request)
+        public override async Task<PilotResponse> Execute(PilotRequestInsert request)
         {
-            var loggedUser = await _loggedUser.Get();
-
-            Validate(request, loggedUser);
+            await base.Execute(request);
+            Validate(request);
 
             var entity = _mapper.Map<PilotEntity>(request);
 
-            entity.UserInclusion = loggedUser.Id;
+            entity.UserInclusion = base.baseLoggedUser!.Id;
             entity = await _repository.Insert(entity);
 
             await _unitOfWork.Commit();
 
-            return _mapper.Map<PilotResponseJson>(entity);
+            return _mapper.Map<PilotResponse>(entity);
         }
 
-        protected override void Validate(PilotInsertRequestJson request, UserEntity user)
+        private void Validate(PilotRequestInsert request)
         {
-            base.Validate(request, user);
+            if (!base.UserMaintence())
+            {
+                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+            }
 
             var validator = new PilotInsertValidator();
             var result = validator.Validate(request);

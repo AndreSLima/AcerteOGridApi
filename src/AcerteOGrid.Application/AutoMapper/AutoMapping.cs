@@ -1,7 +1,6 @@
 ﻿using AcerteOGrid.Communication;
-using AcerteOGrid.Communication.Pilot.Request;
-using AcerteOGrid.Communication.Pilot.Response;
-using AcerteOGrid.Communication.User.Request;
+using AcerteOGrid.Communication.Pilot;
+using AcerteOGrid.Communication.User;
 using AcerteOGrid.Domain.Entities;
 using AcerteOGrid.Domain.Enums;
 using AutoMapper;
@@ -12,10 +11,10 @@ namespace AcerteOGrid.Application.AutoMapper
     {
         public AutoMapping()
         {
-            CreateMap<ABaseInsertRequestJson, BaseEntity>()
+            CreateMap<ABaseRequestInsert, BaseEntity>()
                 .ForMember(baseEntity => baseEntity.DateInclusion, config => config.MapFrom(source => DateTime.Now));
 
-            CreateMap<ABaseUpdateRequestJson, BaseEntity>()
+            CreateMap<ABaseRequestUpdate, BaseEntity>()
                 .ForMember(baseEntity => baseEntity.DateChange, config => config.MapFrom(source => DateTime.Now));
 
             UserMapping();
@@ -24,23 +23,24 @@ namespace AcerteOGrid.Application.AutoMapper
 
         private void UserMapping()
         {
-            CreateMap<UserInsertRequestJson, UserEntity>()
+            CreateMap<UserRequestInsert, UserEntity>()
+                .ForMember(userEntity => userEntity.UserInclusion, config => config.MapFrom(source => 1))
                 .ForMember(userEntity => userEntity.UserTypeEntityId, config => config.MapFrom(source => 2))
                 .ForMember(userEntity => userEntity.Password, config => config.Ignore())
-                .IncludeBase<ABaseInsertRequestJson, BaseEntity>();
+                .IncludeBase<ABaseRequestInsert, BaseEntity>();
         }
 
         private void PilotMapping()
         {
-            CreateMap<PilotEntity, PilotResponseJson>();
+            CreateMap<PilotEntity, PilotResponse>();
 
-            CreateMap<PilotInsertRequestJson, PilotEntity>()
+            CreateMap<PilotRequestInsert, PilotEntity>()
                 .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => source.GenderType == GenderTypeEnum.Male))
-                .IncludeBase<ABaseInsertRequestJson, BaseEntity>();
+                .IncludeBase<ABaseRequestInsert, BaseEntity>();
 
-            CreateMap<PilotUpdateRequestJson, PilotEntity>()
+            CreateMap<PilotRequestUpdate, PilotEntity>()
                 .ForMember(pilotEntity => pilotEntity.GenderType, config => config.MapFrom(source => source.GenderType == GenderTypeEnum.Male))
-                .IncludeBase<ABaseUpdateRequestJson, BaseEntity>();
+                .IncludeBase<ABaseRequestUpdate, BaseEntity>();
         }
     }
 }

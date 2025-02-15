@@ -1,6 +1,6 @@
-﻿namespace AcerteOGrid.Communication.Country.Request
+﻿namespace AcerteOGrid.Communication.Country
 {
-    public class ResquestRegisterCountryJson
+    public class CountryResquestInsert
     {
         public string NameInPortuguese { get; set; } = string.Empty;
         public string NameInEnglish { get; set; } = string.Empty;

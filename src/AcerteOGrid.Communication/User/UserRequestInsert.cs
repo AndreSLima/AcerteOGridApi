@@ -1,6 +1,6 @@
-﻿namespace AcerteOGrid.Communication.User.Request
+﻿namespace AcerteOGrid.Communication.User
 {
-    public class UserInsertRequestJson : ABaseInsertRequestJson
+    public class UserRequestInsert : ABaseRequestInsert
     {
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

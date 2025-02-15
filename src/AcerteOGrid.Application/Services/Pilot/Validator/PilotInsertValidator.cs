@@ -1,10 +1,10 @@
-﻿using AcerteOGrid.Communication.Pilot.Request;
+﻿using AcerteOGrid.Communication.Pilot;
 using AcerteOGrid.Exception;
 using FluentValidation;
 
 namespace AcerteOGrid.Application.Services.Pilot
 {
-    public class PilotInsertValidator : AbstractValidator<PilotInsertRequestJson>
+    public class PilotInsertValidator : AbstractValidator<PilotRequestInsert>
     {
         public PilotInsertValidator()
         {

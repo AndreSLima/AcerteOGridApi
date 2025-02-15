@@ -1,16 +1,45 @@
 ﻿using AcerteOGrid.Communication;
 using AcerteOGrid.Domain.Entities;
-using AcerteOGrid.Exception.ExceptionsBase;
-using AcerteOGrid.Exception;
+using AcerteOGrid.Domain.Services.LoggedUser;
 
 namespace AcerteOGrid.Application.Services
 {
-    public abstract class ServiceBase<BaseRequestJson> where BaseRequestJson : ABaseRequestJson
+    public abstract class ServiceBase<BaseRequest, BaseResponse> where BaseRequest : ABaseRequest where BaseResponse : ABaseResponse
     {
-        protected virtual void Validate(BaseRequestJson request, UserEntity user)
+        private readonly ILoggedUser _loggedUser;
+        protected UserEntity? baseLoggedUser;
+
+        public ServiceBase(ILoggedUser loggedUser)
         {
-            if (!user.UserTypeEntity.Maintenance)
-                throw new UnauthorizedException(ResourceErrorMessages.UNAUTHORIZED);
+            _loggedUser = loggedUser;
+        }
+
+        private async Task<UserEntity> LoggedUserEntity()
+        {
+            baseLoggedUser = await _loggedUser.Get();
+
+            return baseLoggedUser;
+        }
+
+        public virtual async Task Execute(BaseRequest request)
+        {
+            baseLoggedUser = await LoggedUserEntity();
+        }
+
+        protected bool UserAdmin()
+        {
+            if (baseLoggedUser is null)
+                return false;
+
+            return baseLoggedUser!.UserTypeEntity.Administrator;
+        }
+
+        protected bool UserMaintence()
+        {
+            if (baseLoggedUser is null)
+                return false;
+
+            return baseLoggedUser!.UserTypeEntity.Maintenance;
         }
     }
 }

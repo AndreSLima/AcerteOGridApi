@@ -1,7 +1,6 @@
 ﻿using AcerteOGrid.Application.Services.Pilot;
-using AcerteOGrid.Communication.Error.Response;
-using AcerteOGrid.Communication.Pilot.Request;
-using AcerteOGrid.Communication.Pilot.Response;
+using AcerteOGrid.Communication.Error;
+using AcerteOGrid.Communication.Pilot;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +11,8 @@ namespace AcerteOGrid.Api.Controllers
     public class PilotController : ControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(typeof(PilotResponseJson), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(PilotResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAllPilots([FromServices] IPilotGetAllService service)
         {
             var response = await service.Execute();
@@ -26,8 +25,8 @@ namespace AcerteOGrid.Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [ProducesResponseType(typeof(PilotResponseJson), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(PilotResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPilot([FromServices] IPilotGetByIdService service, [FromRoute] int id)
         {
             var response = await service.Execute(id);
@@ -36,10 +35,10 @@ namespace AcerteOGrid.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(PilotResponseJson), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(PilotResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
-        public async Task<IActionResult> PostPilot([FromServices] IPilotInsertService service, [FromBody] PilotInsertRequestJson request)
+        public async Task<IActionResult> PostPilot([FromServices] IPilotInsertService service, [FromBody] PilotRequestInsert request)
         {
             var response = await service.Execute(request);
 
@@ -48,21 +47,23 @@ namespace AcerteOGrid.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(PilotResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [Authorize]
-        public async Task<IActionResult> PutPilot([FromServices] IPilotUpdateService service, [FromRoute] int id, [FromBody] PilotUpdateRequestJson request)
+        public async Task<IActionResult> PutPilot([FromServices] IPilotUpdateService service, [FromRoute] int id, [FromBody] PilotRequestUpdate request)
         {
-            await service.Execute(id, request);
+            request.Id = id;
 
-            return NoContent();
+            var response = await service.Execute(request);
+
+            return Ok(response);
         }
 
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [Authorize]
         public async Task<IActionResult> DeletePilot([FromServices] IPilotDeleteService service, [FromRoute] int id)
         {
