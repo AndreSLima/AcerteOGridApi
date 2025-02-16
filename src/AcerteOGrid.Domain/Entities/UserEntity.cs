@@ -11,6 +11,7 @@ namespace AcerteOGrid.Domain.Entities
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public Guid Identifier { get; set; }
+        public bool UserConfirmed { get; set; }
         public virtual UserTypeEntity UserTypeEntity { get; set; } = default!;
     }
 }

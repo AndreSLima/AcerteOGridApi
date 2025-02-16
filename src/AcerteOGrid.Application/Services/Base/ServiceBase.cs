@@ -26,6 +26,14 @@ namespace AcerteOGrid.Application.Services
             baseLoggedUser = await LoggedUserEntity();
         }
 
+        protected bool UserConfirmed()
+        {
+            if (baseLoggedUser is null)
+                return false;
+
+            return baseLoggedUser!.UserConfirmed;
+        }
+
         protected bool UserAdmin()
         {
             if (baseLoggedUser is null)

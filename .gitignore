@@ -11,6 +11,8 @@
 *.sln.docstates
 appsettings.json
 AcerteOGridDbContext.cs
+*Context.cs
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

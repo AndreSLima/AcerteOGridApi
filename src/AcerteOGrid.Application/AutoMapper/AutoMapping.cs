@@ -26,6 +26,8 @@ namespace AcerteOGrid.Application.AutoMapper
             CreateMap<UserRequestInsert, UserEntity>()
                 .ForMember(userEntity => userEntity.UserInclusion, config => config.MapFrom(source => 1))
                 .ForMember(userEntity => userEntity.UserTypeEntityId, config => config.MapFrom(source => 2))
+                .ForMember(userEntity => userEntity.UserConfirmed, config => config.MapFrom(source => 0))
+                .ForMember(userEntity => userEntity.Identifier, config => config.MapFrom(source => Guid.NewGuid()))
                 .ForMember(userEntity => userEntity.Password, config => config.Ignore())
                 .IncludeBase<ABaseRequestInsert, BaseEntity>();
         }

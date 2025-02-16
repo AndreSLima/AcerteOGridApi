@@ -23,9 +23,9 @@ namespace AcerteOGrid.Application.Services.Login
         {
             var user = await _repository.GetUserByEmail(request.Email);
 
-            if (user is null)
+            if (user is null || !user.UserConfirmed)
             {
-                throw new InvalidLoginException();
+                throw new UnauthorizedException("Não autorizado");
             }
 
             var passwordMatch = _passwordEncripter.Verify(request.Password, user.Password);

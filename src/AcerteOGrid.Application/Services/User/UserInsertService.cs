@@ -33,9 +33,7 @@ namespace AcerteOGrid.Application.Services.User
             await Validate(request);
 
             var entity = _mapper.Map<UserEntity>(request);
-
             entity.Password = _passwordEncripter.Encrypt(request.Password);
-            entity.Identifier = Guid.NewGuid();
 
             await _userWriteOnlyRepository.Insert(entity);
             await _unitOfWork.Commit();
