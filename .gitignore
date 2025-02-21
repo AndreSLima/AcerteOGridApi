@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 appsettings.json
+appsettings*.*
 AcerteOGridDbContext.cs
 *Context.cs
 
